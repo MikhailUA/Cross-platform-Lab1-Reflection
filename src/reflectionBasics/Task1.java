@@ -46,7 +46,7 @@ public class Task1 {
 		
 	}
 	
-	private static String getClassAccessibleMethods(Class<?> cls) {
+	public static String getClassAccessibleMethods(Class<?> cls) {
 		String mList = "";
 		Method[] methodsCls = cls.getMethods();
 		
@@ -56,7 +56,7 @@ public class Task1 {
 		return mList;	
 	}
 
-	private static String getClassMethods(Class<?> cls) {
+	public static String getClassMethods(Class<?> cls) {
 		String mList = "";
 		Method[] methodsCls = cls.getDeclaredMethods();
 		
@@ -66,7 +66,7 @@ public class Task1 {
 		return mList;
 	}
 
-	private static String getClassConstructors(Class<?> cls) {
+	public static String getClassConstructors(Class<?> cls) {
 		String constrList = "";
 		Constructor<?>[] constructorsCls= cls.getDeclaredConstructors();
 		
@@ -76,7 +76,7 @@ public class Task1 {
 		return constrList;
 	}
 
-	private static String getClassFields(Class<?> cls) {
+	public static String getClassFields(Class<?> cls) {
 		String fieldList = "";
 		
 		Field[] fields = cls.getDeclaredFields();
@@ -87,7 +87,7 @@ public class Task1 {
 		return fieldList;
 	}
 
-	private static String getClassInterFaces(Class<?> cls) {
+	public static String getClassInterFaces(Class<?> cls) {
 		String interfaces = "";
 		Class <?>[] interfacesCls = cls.getInterfaces();
 		for(Class interfaceCls: interfacesCls){
@@ -96,7 +96,7 @@ public class Task1 {
 		return interfaces;
 	}
 
-	private static String getClassSuperClass(Class<?> cls) {
+	public static String getClassSuperClass(Class<?> cls) {
 		Class<?> baseCls = cls.getSuperclass();
 		return baseCls.getName();
 	}
@@ -108,6 +108,5 @@ public class Task1 {
 	public static String getClassNameAndModifiers(Class cls){
 		return cls.toGenericString();
 	}
-	
 	
 }
