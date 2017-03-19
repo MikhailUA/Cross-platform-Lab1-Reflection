@@ -18,7 +18,7 @@ class ReflectionAnalyzer {
 	    */
 	   public String toString(Object obj) {
 	      if (obj == null) return "null";
-	      if (visited.contains(obj)) return "...";
+	      //if (visited.contains(obj)) return "...";
 	      visited.add(obj);
 	      Class cl = obj.getClass();
 	      if (cl == String.class) return (String) obj;
@@ -34,15 +34,18 @@ class ReflectionAnalyzer {
 	      }
 
 	      String r = cl.getName();
+	      r = "";
 	      // inspect the fields of this class and all superclasses
 	      do {
-	         r += "[";
+	         //r += "[";
 	         Field[] fields = cl.getDeclaredFields();
 	         AccessibleObject.setAccessible(fields, true);
 	         // get the names and values of all fields
+	         int i = 0;
 	         for (Field f : fields) {
 	            if (!Modifier.isStatic(f.getModifiers())) {
-	               if (!r.endsWith("[")) r += ",";
+	            	if ( i > 0 ) r += "," + "\n";
+	              // if (!r.endsWith("[")) r += ",";
 	               r += f.getName() + "=";
 	               try {
 	                  Class t = f.getType();
@@ -53,8 +56,9 @@ class ReflectionAnalyzer {
 	                  e.printStackTrace();
 	               }
 	            }
+	            i++;
 	         }
-	         r += "]";
+	         //r += "]";
 	         cl = cl.getSuperclass();
 	      } while (cl != null);
 

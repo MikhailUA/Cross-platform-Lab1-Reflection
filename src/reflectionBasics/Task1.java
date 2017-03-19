@@ -1,10 +1,6 @@
 package reflectionBasics;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.lang.reflect.*;
 
 /* 
 имя пакета
@@ -15,98 +11,45 @@ import java.util.Scanner;
 список конструкторов
 список методов и их характеристики
 список всех общедоступных методов класса: объявленных в этом классе и унаследованных от базового
-
 */
+
 public class Task1 {
 
-	public static void main(String[] args) throws ClassNotFoundException {
+	public static void main(String[] args){
 		
-		//Scanner in = new Scanner(System.in);
-		
-		//String str = in.nextLine();
-		String str = "java.lang.Integer";
-		
-		Class<?> cls = Class.forName(str);
-
-		String clsPackageName = getClassPackageName(cls);
-		String clsNameAndModifiers = getClassNameAndModifiers(cls);
-		String clsSuperClass = getClassSuperClass(cls);
-		String clsInterfaces = getClassInterFaces(cls);
-		String clsListOfFields = getClassFields(cls);
-		String clsConstructors = getClassConstructors(cls);
-		String clsMethods = getClassMethods(cls);
-		String clsAccessibleMethods = getClassAccessibleMethods(cls);
-		
-		System.out.println(clsNameAndModifiers + " extends "+ clsSuperClass + "\n");
-		System.out.println("Implements: " + clsInterfaces);
-		System.out.println("Class Fields: \n" + clsListOfFields);
-		System.out.println("Class Constructors: \n" + clsConstructors);
-		System.out.println("Class methods: \n"  + clsMethods);
-		System.out.println("Class accessible methods: \n"  + clsAccessibleMethods);
-		
-	}
+		String name;
+		/*
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter class name (e.g. java.util.Date): ");
+		name = in.nextLine();*/
+		name = "java.lang.Double";		
+		 
+		try{
+			Class<?> cls = Class.forName(name);
 	
-	public static String getClassAccessibleMethods(Class<?> cls) {
-		String mList = "";
-		Method[] methodsCls = cls.getMethods();
-		
-		for (Method method: methodsCls){
-			mList = mList + method.toGenericString() + "\n";
+			String clsPackageName 		= ReflectionMethods.getClassPackageName(cls);
+			String clsNameAndModifiers 	= ReflectionMethods.getClassNameAndModifiers(cls);
+			String clsSuperClass 		= ReflectionMethods.getClassSuperClass(cls);
+			String clsInterfaces 		= ReflectionMethods.getClassInterFaces(cls);
+			String clsListOfFields 		= ReflectionMethods.getClassFields(cls);					
+			String clsConstructors 		= ReflectionMethods.getClassConstructors(cls); 			
+			String clsMethods 			= ReflectionMethods.getClassMethods(cls);					
+			String clsAccessibleMethods = ReflectionMethods.getClassAccessibleMethods(cls);	
+			
+			System.out.println(clsNameAndModifiers); 
+			System.out.println(clsNameAndModifiers + " extends "+ clsSuperClass + "\n");
+			System.out.println("Implements: " + clsInterfaces);
+			System.out.println("Class Fields: \n" + clsListOfFields);
+			System.out.println("Class Constructors: \n" + clsConstructors);
+			System.out.println("Class methods: \n"  + clsMethods);
+			System.out.println("Class accessible methods: \n"  + clsAccessibleMethods);
 		}
-		return mList;	
-	}
-
-	public static String getClassMethods(Class<?> cls) {
-		String mList = "";
-		Method[] methodsCls = cls.getDeclaredMethods();
-		
-		for (Method method: methodsCls){
-			mList = mList + method.toGenericString() + "\n";
+		catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
 		}
-		return mList;
+		System.exit(0);
 	}
 
-	public static String getClassConstructors(Class<?> cls) {
-		String constrList = "";
-		Constructor<?>[] constructorsCls= cls.getDeclaredConstructors();
-		
-		for (Constructor<?> constructor: constructorsCls){
-			constrList = constrList + constructor.toGenericString() + "\n";			
-		}
-		return constrList;
-	}
-
-	public static String getClassFields(Class<?> cls) {
-		String fieldList = "";
-		
-		Field[] fields = cls.getDeclaredFields();
-		
-		for(Field field: fields){
-			fieldList = fieldList + field.toGenericString() + "\n";
-		}
-		return fieldList;
-	}
-
-	public static String getClassInterFaces(Class<?> cls) {
-		String interfaces = "";
-		Class <?>[] interfacesCls = cls.getInterfaces();
-		for(Class interfaceCls: interfacesCls){
-			interfaces = interfaces + interfaceCls.getName() + "\n";
-		}
-		return interfaces;
-	}
-
-	public static String getClassSuperClass(Class<?> cls) {
-		Class<?> baseCls = cls.getSuperclass();
-		return baseCls.getName();
-	}
-
-	public static String getClassPackageName(Class cls){
-		return cls.getPackage().toString();
-	}
-	
-	public static String getClassNameAndModifiers(Class cls){
-		return cls.toGenericString();
-	}
 	
 }
